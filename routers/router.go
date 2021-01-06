@@ -15,6 +15,7 @@ import (
 
 
 func InitRpcRouters(rpcServer *server.Server){
+	// 注册路由 或 RegisterName
 	err := rpcServer.Register(new(service.Student),"")
 	if err != nil{
 		// 打印日志

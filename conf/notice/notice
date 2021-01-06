@@ -1,0 +1,44 @@
+
+
+
+#=========================================中间件备忘录====================================================
+
+// rpcTask 对接生产者，生产数据的地方，调用rpctask中的task的定义的接口
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// 关于消息队列开发备忘录
+// 1：在rpcinterface --> interface -->task -->对应的项目目录中定义接口
+// 2：在rpcinterface --> client -->task--> ......
+// 3: 在service ---> 对应的业务中调用发布消息队列方法。Rabbitmq.Publish （生产者）
+// 4: 根据exchange.setInsuranceRate 在配置文件中定义交换机名称：（在test和dev rabbitmq.conf 中都要添加）
+//    exchange.setInsuranceRate = insurance.setInsuranceRate
+// 5：在Routers文件 -->router.go 中注册路由
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// rabbitmq 注意事项
+// 1： 在rpctask中rabbitmq.conf 中定义的 交换机名称，需要在rabbitmq 【exchanges】 添加
+// 2： 在comsumetask中 定义的配置文件 需要在queues 中添加，并且将exchanges与queues进行绑定
+// 3： 在rpcinterface-->client-->task->中的 ServicePath："Insurance/InsuranceRate"（其中后面的是结构体名称）
+// 4:
+
+// RabbitMQ参数配置说明：
+direct exchange: 所有发送到 direct exchange 的消息被转发到 routing key 中指定的queue复制代码
+topic exchange:  所有发送到 topic exchange 的消息被转发到所有关心 routingkey 中 topic 的
+                 queue 上 exchange 将 routingkey 和某 topic 进行模糊匹配
+fanout exchange: 不处理路由键，只需要简单的将队列绑定到交换机上
+
+//
+// consumeTask 对接消费者，此中调用消费者client中的接口，将数据传替过去。
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 开发注意事项
+// 1：初始化出口consumer( 调用 初始化client总的结构体）rpcFinancial := new(financial.Insurance).Init()
+// 2：连接交换机 通过【insurance.queue.cardpackpolicyTask】队列与交换绑定，调用消费者 Rabbitmq.Consume()
+// 3：将数据传替给rpc需要调用的地方。
+// 4：编写配置文件rabbitmq.conf
+
+
+
+// 整理总结
+// task -- interface 和 client 生产端 rpcTask 对接上游（生产数据端
+// interface 和 client  消费端  consumeTask
+// 中间件

@@ -1,4 +1,4 @@
 vendor
 output
-conf/dev*
 .idea
+#conf/dev*
