@@ -11,3 +11,11 @@ package _const
 const (
 	Hi="10001"
 )
+
+
+// 时间类
+const(
+	TIME_ERR = "200001"
+	TIME_NTL = "200002"
+
+)
