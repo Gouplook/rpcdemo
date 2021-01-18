@@ -126,20 +126,7 @@ func CheckArrExsits(arr []string, checkArr []string) bool {
 	return true
 }
 
-//时间戳转化为字符串
-//@param  int64  timestamp  时间戳
-//@return string
-func TimeToStrFormat(timestamp int64, param ...string) string {
-	//分析参数
-	var format string
-	if len(param) == 0 {
-		format = "2006/01/02 15:04:05"
-	} else {
-		format = param[0]
-	}
-	tm := time.Unix(timestamp, 0)
-	return tm.Format(format)
-}
+
 
 //Interface2String Interface2String
 func Interface2String(inter interface{}) string {
