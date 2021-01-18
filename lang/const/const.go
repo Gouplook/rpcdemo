@@ -19,3 +19,7 @@ const(
 	TIME_NTL = "200002"
 
 )
+
+const (
+	PAY_CHANNEL_ERROR   = "30004"
+)
