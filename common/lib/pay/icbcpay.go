@@ -8,18 +8,38 @@
 package pay
 
 import (
-	"github.com/shopspring/decimal"
+	"github.com/tidwall/gjson"
 	"rpcdemo/rpcinterface/interface/pay"
 )
 
-type icbcPay struct {
+type icbc struct {
 
 }
 
-
-// 工行H5支付宝支付
-func (i *icbcPay) H5AliPay(payInfo *pay.ICBcPayInfo,reply *pay.ReplyH5AliPay) error{
-	realAmout, _ := decimal.NewFromString(payInfo.RealAmount)
-
-
+//生成二维码
+func (i *icbc) PayQr(payInfo *pay.PayInfo) (string, error) {
+	return "", nil
 }
+
+// H5支付
+func (i *icbc) PayH5(payInfo *pay.PayInfo) (string, error) {
+	//return lib.IcbcPay.H5AliPay(payInfo)
+	return "", nil
+}
+
+// 微信小程序支付
+func (i *icbc) PayWxApp(payInfo *pay.PayInfo) (*gjson.Result, error) {
+
+	return nil, nil
+}
+// 微信公共号支付
+func (i *icbc) PayWxOfficial(info *pay.PayInfo) (*gjson.Result, error) {
+	return nil, nil
+}
+
+// 微信App支付
+//获取App支付信息
+func (i *icbc) PayApp(payInfo *pay.PayInfo) (*gjson.Result, error) {
+	return nil, nil
+}
+

@@ -8,32 +8,28 @@
 package pay
 
 import (
-	_const "rpcdemo/lang/const"
-	"rpcdemo/rpcinterface/interface/order"
 	"rpcdemo/rpcinterface/interface/pay"
-	"rpcdemo/upbase/common/toolLib"
+	"github.com/tidwall/gjson"
 )
 
 type Pay interface {
-	// H5支付宝支付
-	H5AliPay(payInfo *pay.ICBcPayInfo,reply *pay.ReplyH5AliPay) error
-	// 获取支付渠道类型
-	GetType() int
-
-
+	// 二维码支付
+	PayQr(info *pay.PayInfo) (string, error)
+	// h5支付
+	PayH5(info *pay.PayInfo) (string, error)
+	// 微信支付
+	PayWxApp(info *pay.PayInfo) (*gjson.Result, error)
+	// 微信公众号支付
+	PayWxOfficial(info *pay.PayInfo) (*gjson.Result, error)
+	// app支付
+	PayApp(info *pay.PayInfo) (*gjson.Result, error)
 }
 
-func GetPay(payChannel int) (*Pay, error) {
-	switch payChannel {
-	//case order.PAY_TYPE_ALI:
-	//	p := Pay(new(ccb))
-	//	return &p, nil
-	//case order.PAY_CHANNEL_sand:
-	//	p := Pay(new(sandPay))
-	//	return &p, nil
-	case order.PAY_CHANNEL_icbc:
-		p := Pay(new())
-		return &p, nil
-	}
-	return nil, toolLib.CreateKcErr(_const.PAY_CHANNEL_ERROR)
+
+
+//  获取支付渠道
+//  ICBC  CCBC  ABC...等银行
+func GetPay(payChannel int) (*Pay, error){
+
+	return nil ,nil
 }
