@@ -9,6 +9,7 @@ package pay
 
 import (
 	"github.com/tidwall/gjson"
+	"rpcdemo/common/lib"
 	"rpcdemo/rpcinterface/interface/pay"
 )
 
@@ -23,14 +24,12 @@ func (i *icbc) PayQr(payInfo *pay.PayInfo) (string, error) {
 
 // H5支付
 func (i *icbc) PayH5(payInfo *pay.PayInfo) (string, error) {
-	//return lib.IcbcPay.H5AliPay(payInfo)
-	return "", nil
+	return lib.IcbcPay.H5AliPay(payInfo)
 }
 
 // 微信小程序支付
 func (i *icbc) PayWxApp(payInfo *pay.PayInfo) (*gjson.Result, error) {
-
-	return nil, nil
+	return lib.IcbcPay.PayWxOfficial(payInfo)
 }
 // 微信公共号支付
 func (i *icbc) PayWxOfficial(info *pay.PayInfo) (*gjson.Result, error) {
