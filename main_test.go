@@ -63,13 +63,6 @@ func TestRe(t *testing.T) {
 	for k := range p {
 		var value = p.Get(k)
 		data[k] = value
-
 	}
 	fmt.Println(data)
-
-
-
-
-
-
 }

@@ -30,6 +30,5 @@ type Pay interface {
 //  获取支付渠道
 //  ICBC  CCBC  ABC...等银行
 func GetPay(payChannel int) (*Pay, error){
-
 	return nil ,nil
 }

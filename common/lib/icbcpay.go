@@ -26,13 +26,15 @@ import (
 )
 
 type icbcpay struct {
-	//
+
+	// 公共类型参数
 	host       string
 	merId      string // 商户编号
 	merPrtclNo string // 收单产品协议编号
 	notifyUrl  string // 异步通知商户URL
 
-	apigwPublicKey string //网关公钥
+	// 签名加密所需参数
+	apigwPublicKey string // 网关公钥
 	pre            string // 签名前缀
 	singType       string // 签名类型
 	encryptType    string // 加密方式
@@ -97,6 +99,7 @@ func (i *icbcpay) H5AliPay(payInfo *pay.PayInfo) (string, error) {
 }
 
 // 微信小程序支付 (采用AES方式进行加密）
+// 微信公众好支付（参数不同, 在payInfo和bizContent)配置参数
 func (i *icbcpay) PayWxOfficial(payInfo *pay.PayInfo) (*gjson.Result, error) {
 	realAmount, _ := decimal.NewFromString(payInfo.RealAmount)
 	amount := realAmount.Mul(decimal.New(100, 0)).String()
@@ -105,8 +108,7 @@ func (i *icbcpay) PayWxOfficial(payInfo *pay.PayInfo) (*gjson.Result, error) {
 		"mer_prtcl_no": i.merPrtclNo,    // 必须 收单产品协议编号
 		"order_id":     payInfo.OrderSn, // 商户订单号
 		"amount":       amount,          // 必须 订单金额，单位为分
-		"mer_url":      i.notifyUrl,     //异步通知商户URL，端口必须为443或80
-
+		"mer_url":      i.notifyUrl,     // 异步通知商户URL，端口必须为443或80
 	}
 
 	// 1：拼接请求参数及URL （URLValue)
@@ -151,6 +153,58 @@ func (i *icbcpay) PayWxOfficial(payInfo *pay.PayInfo) (*gjson.Result, error) {
 
 	return &res, nil
 
+}
+
+// APP 支付
+func (i *icbcpay)PayApp(payInfo *pay.PayInfo)(*gjson.Result, error){
+	realAmount, _ := decimal.NewFromString(payInfo.RealAmount)
+	amount := realAmount.Mul(decimal.New(100,0)).String()
+	bizContent := map[string]string {
+		"mer_id":       i.merId,         // 必须 商户编号
+		"mer_prtcl_no": i.merPrtclNo,    // 必须 收单产品协议编号
+		"order_id":     payInfo.OrderSn, // 商户订单号
+		"amount":       amount,          // 必须 订单金额，单位为分
+		"mer_url":      i.notifyUrl,     //异步通知商户URL，端口必须为443或80
+	}
+	// 获取URL
+	urlStr, _,pValue ,err := i.URLValues(bizContent)
+	if err != nil {
+		return nil, nil
+	}
+
+	bytes, err := i.DoRequest("POST",urlStr,pValue)
+
+	//
+	respBody := gjson.Parse(string(bytes))
+	responBizContent := respBody.Get("response_biz_content")
+	responBizContentStr := responBizContent.String()
+
+	// 对获取的字符串，进行解密
+	decipherBizContent, err := i.AesDecipherBizContent(responBizContentStr,i.encryptKey)
+
+	resultCode := respBody.Get("return_code").Int()
+	resultMsg := respBody.Get("return_msg").String()
+	if  resultCode != 0 {
+		logs.Info("PayApp err : %d,%s ",resultCode, resultMsg)
+		return nil, nil
+	}
+	// 	解密后验签
+	sign := respBody.Get("sign").String()
+	err = i.veriSign(decipherBizContent, sign,"RSA")
+	if err != nil {
+		logs.Info("veriSign failed")
+		return nil, nil
+	}
+	// 判断支付渠道
+	// 1= 微信  2 = 支付宝
+	var res gjson.Result
+	if payInfo.PayChannel == 1 {
+		res = responBizContent.Get("wx_data_package")
+	}else if payInfo.PayChannel == 2 {
+		res = responBizContent.Get("wx_data_package")
+	}
+
+	return &res,nil
 }
 
 // 加密	 公钥加密
@@ -246,6 +300,7 @@ func (i *icbcpay) URLValues(bizContext map[string]string) (urlStr string, urlVal
 	var p = url.Values{}
 	// 公共参数
 	p.Add("key", "value")
+	// ...
 
 	// 拼接：公共参数 + biz_context
 	bytes, err := json.Marshal(bizContext)
@@ -264,13 +319,13 @@ func (i *icbcpay) URLValues(bizContext map[string]string) (urlStr string, urlVal
 	// 对参数进行排序
 	dataStr := i.requestParameterOrder(data)
 	// 这些参数放到成配置文件
-
 	// 签名
 	sign, err := i.signStr(i.pre, dataStr, i.singType, i.privateKey)
 	p.Add("sign", sign)
 
 	urlStr = i.host + i.pre
 	pVaules = p
+
 	// 解析
 	urlValue, err = url.Parse(urlStr + "?" + p.Encode())
 	if err != nil {
@@ -337,6 +392,7 @@ func (i *icbcpay) DoRequest(method string, url string, data url.Values) (bytes [
 	// 1:读取数据
 	var buf io.Reader
 	buf = strings.NewReader(data.Encode())
+	method = strings.ToUpper(method)
 	req, err := http.NewRequest(method, url, buf)
 	if err != nil {
 		return
