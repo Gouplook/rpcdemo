@@ -2,7 +2,7 @@
 
 @Author :yinjinlin<yinjinlin_uplook@163.com>
 @Time : 2021/1/27 13:32
-@Description:
+@Description: 工商银行支付
 
 *********************************************/
 package lib
@@ -26,7 +26,6 @@ import (
 )
 
 type icbcpay struct {
-
 	// 公共类型参数
 	host       string
 	merId      string // 商户编号
@@ -52,9 +51,9 @@ var (
 )
 
 func init() {
+	// 公共参数进行赋值
 	IcbcPay.host = "https://apipcs3.dccnet.com.cn"
 	IcbcPay.pre = ""
-
 }
 
 // 二维码支付
@@ -64,7 +63,6 @@ func init() {
 // @formUrl 前端跳转的链接
 // @return string 二维码内容
 func (i *icbcpay) QrCode(payinfo *pay.PayInfo) (string, error) {
-
 	// 1: 公共数据
 
 	// 2: biz_context
@@ -84,7 +82,6 @@ func (i *icbcpay) QrCode(payinfo *pay.PayInfo) (string, error) {
 func (i *icbcpay) H5AliPay(payInfo *pay.PayInfo) (string, error) {
 	realAmount, _ := decimal.NewFromString(payInfo.RealAmount)
 	amount := realAmount.Mul(decimal.New(1, 2)).String()
-
 	// biz_context
 	bizContentMap := map[string]string{
 		"mer_id":       i.merId,         // 必须 商户编号
@@ -137,7 +134,7 @@ func (i *icbcpay) PayWxOfficial(payInfo *pay.PayInfo) (*gjson.Result, error) {
 
 	// 5: 对解密后的数据进行验签
 	sign := resultBody.Get("sign").String()
-	err = i.veriSign(decipherBizContent, sign, "RSA")
+	err = i.verifySign(decipherBizContent, sign, "RSA")
 	if err != nil {
 		return nil, nil
 	}
@@ -150,9 +147,7 @@ func (i *icbcpay) PayWxOfficial(payInfo *pay.PayInfo) (*gjson.Result, error) {
 
 	// 6: 返回支付信息，微信还是支付宝支付
 	res := respBizContentResult.Get("wx_data_package") //微信支付数据包
-
 	return &res, nil
-
 }
 
 // APP 支付
@@ -190,7 +185,7 @@ func (i *icbcpay)PayApp(payInfo *pay.PayInfo)(*gjson.Result, error){
 	}
 	// 	解密后验签
 	sign := respBody.Get("sign").String()
-	err = i.veriSign(decipherBizContent, sign,"RSA")
+	err = i.verifySign(decipherBizContent, sign,"RSA")
 	if err != nil {
 		logs.Info("veriSign failed")
 		return nil, nil
@@ -307,7 +302,6 @@ func (i *icbcpay) URLValues(bizContext map[string]string) (urlStr string, urlVal
 	if err != nil {
 		return
 	}
-
 	p.Add("biz_content", string(bytes))
 
 	// url.values --> map[string][string]
@@ -335,7 +329,7 @@ func (i *icbcpay) URLValues(bizContext map[string]string) (urlStr string, urlVal
 }
 
 //验签 公钥签名
-func (i *icbcpay) veriSign(data, sign, signType string) (err error) {
+func (i *icbcpay) verifySign(data, sign, signType string) (err error) {
 	// 目前 验签签名只支持RSA方式
 	switch signType {
 	case "RSA":
@@ -349,6 +343,7 @@ func (i *icbcpay) veriSign(data, sign, signType string) (err error) {
 
 // 签名 私钥签名
 // @pre         签名分两种类型，一种带有前缀字符串，一种不带前缀字符串
+//              1=  前缀+data +私钥     2 = data + 私钥
 // @data        签名数据
 // @singType    签名类型
 // @privateKey  私钥
@@ -393,6 +388,7 @@ func (i *icbcpay) DoRequest(method string, url string, data url.Values) (bytes [
 	var buf io.Reader
 	buf = strings.NewReader(data.Encode())
 	method = strings.ToUpper(method)
+	// 建立请求
 	req, err := http.NewRequest(method, url, buf)
 	if err != nil {
 		return
