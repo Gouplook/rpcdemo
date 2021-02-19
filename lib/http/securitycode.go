@@ -35,14 +35,13 @@ type CommonResponseBody struct {
 
 // 获取URl
 func (s *SecurityCode) getUrl() (url string) {
-
 	url = "http.www.baidu.com"
 	return url
 }
 
 // Content-Type ：application/json
 // 请求远程URL地址获取信息
-func (s *SecurityCode) doJson(requestBody *bytes.Buffer) (commonResponseBody *CommonResponseBody, err error) {
+func (s *SecurityCode) doJson(requestBody *bytes.Buffer)(commonResponseBody *CommonResponseBody, err error) {
 	// 为何需要转换成字符串
 	requestBodyStr := fmt.Sprintf("%s", requestBody)
 	requestBodyStr = strings.Replace(requestBodyStr, " ", "", -1)

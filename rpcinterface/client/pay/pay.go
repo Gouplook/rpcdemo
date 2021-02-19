@@ -24,6 +24,6 @@ func (i *ICBCPay) Init() *ICBCPay {
 }
 
 // H5支付宝支付
-func (i *ICBCPay)H5AliPay(ctx context.Context, args *pay.ICBcPayInfo, reply *string) error {
+func (i *ICBCPay)H5AliPay(ctx context.Context, args *pay.PayInfo, reply *string) error {
 	return i.Call(ctx, "H5AliPay", args, reply)
 }
