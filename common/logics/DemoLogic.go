@@ -9,6 +9,7 @@ package logics
 
 import (
 	"context"
+	"rpcdemo/common/models"
 	"rpcdemo/rpcinterface/interface/demo"
 )
 
@@ -17,6 +18,10 @@ type DemoLogic struct {
 }
 
 func (d *DemoLogic)DemoSample(ctx context.Context, args *demo.ArgsDemo, reply *demo.ReplyDemo) error {
+		demoModel := new(models.DemoModel).Init()
+		wh := map[string]interface{}{}
+		start,limit := args.GetStart(),args.GetPageSize()
+		demoModel.SelectByPage(wh,start,limit)
 
 	return nil
 }

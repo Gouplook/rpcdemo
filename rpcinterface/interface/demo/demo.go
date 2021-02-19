@@ -7,10 +7,14 @@
 *********************************************/
 package demo
 
-import "context"
+import (
+	"context"
+	"rpcdemo/rpcinterface/interface/common"
+)
 
 // 入参数
 type ArgsDemo struct {
+	common.Paging // 分页
 
 }
 
