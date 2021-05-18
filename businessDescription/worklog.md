@@ -201,6 +201,97 @@ http://apidoc.shutung.com/web/#/4?page_id=494
 添加/修改文档：
 1：卡项 商品服务接口
 
+
+
+sql:备注
+
+kc_card:综合卡
+ALTER TABLE `jkd_cards`.`kc_card`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
+
+kc_shop_card:已添加到门店的综合卡
+ALTER TABLE `jkd_cards`.`kc_shop_card`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_hcard:限时卡表
+ALTER TABLE `jkd_cards`.`kc_hcard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_shop_hcard:已添加到门店的限时卡
+ALTER TABLE `jkd_cards`.`kc_shop_hcard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_hncard:限时限次卡表
+ALTER TABLE `jkd_cards`.`kc_hncard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_shop_hncard: 已添加到门店的限时限次卡
+ALTER TABLE `jkd_cards`.`kc_shop_hncard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_icard:身份卡表
+ALTER TABLE `jkd_cards`.`kc_icard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_shop_icard:已添加到门店的身份卡
+ALTER TABLE `jkd_cards`.`kc_shop_icard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_ncard:限次卡表
+ALTER TABLE `jkd_cards`.`kc_ncard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
+
+kc_shop_ncard:已添加到门店的限次卡
+ALTER TABLE `jkd_cards`.`kc_shop_ncard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+
+kc_rcard：充值卡
+ALTER TABLE `jkd_cards`.`kc_rcard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
+
+kc_shop_rcard：添加到门店的充值卡
+ALTER TABLE `jkd_cards`.`kc_shop_rcard`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_sm: 套餐表
+ALTER TABLE `jkd_cards`.`kc_sm`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
+
+kc_shop_sm:已添加到门店的套餐
+ALTER TABLE `jkd_cards`.`kc_shop_sm`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_single:单项目基础信息表
+ALTER TABLE `jkd_cards`.`kc_single`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+kc_shop_single: 已添加到门店的单项目
+ALTER TABLE `jkd_cards`.`kc_shop_single`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
+ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
+
+
+
 >>>-----log-11
 > ////////////////////////--rpcRisk---////////////////////////// 
 开发日期：2021-04-12
