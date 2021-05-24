@@ -246,8 +246,8 @@ ALTER TABLE `jkd_cards`.`kc_shop_icard`
 ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
 ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
 
-kc_ncard:限次卡表
-ALTER TABLE `jkd_cards`.`kc_ncard`
+kc_hncard:限次卡表
+ALTER TABLE `jkd_cards`.`kc_hncard`
 ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
 ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
 ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
@@ -263,6 +263,9 @@ ALTER TABLE `jkd_cards`.`kc_rcard`
 ADD COLUMN `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除 0=否，1=是' AFTER `ctime`,
 ADD COLUMN `del_time` int(10) NOT NULL DEFAULT 0 COMMENT '删除时间' AFTER `is_del`;
 ADD COLUMN `is_permanent_validity` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否永久有效：1-是；2-否；如果永久有效则service_period字段可忽略，否者必填' AFTER `service_period`;
+ADD COLUMN `is_have_discount` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否享受折扣：1-无折扣；2-有折扣',
+
+
 
 kc_shop_rcard：添加到门店的充值卡
 ALTER TABLE `jkd_cards`.`kc_shop_rcard`
