@@ -9,6 +9,7 @@ package logics
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"rpcdemo/common/models"
 	"rpcdemo/rpcinterface/client/file"
@@ -31,5 +32,56 @@ func (d *DemoLogic)DemoSample(ctx context.Context, args *demo.ArgsDemo, reply *d
 		rpcFile := new(file.Upload).Init()
 		fmt.Println(rpcFile)
 
+
+		//
+		reminder,_ := json.Marshal(args.Reminder)
+
+		// 插入数据库
+		demoModel.Insert(map[string]interface{}{
+			demoModel.Field.F_reminder:reminder,
+		})
+
+
 	return nil
 }
+
+// 获取信息
+func (d *DemoLogic)GetDem(ctx context.Context) error{
+
+	demoModel := new(models.DemoModel).Init()
+
+	// 查找数据
+	demoInfo := demoModel.Find(map[string]interface{}{
+
+	})
+
+	//map转struct  mapstructure.WeakDecode
+
+	var reminder  []demo.ReminderInfo
+	_ = json.Unmarshal([]byte(demoInfo[demoModel.Field.F_reminder].(string)),&reminder)
+
+	// 图片信息处理
+
+
+
+
+	return nil
+}
+
+
+// 编辑信息
+func (d *DemoLogic)EditDem(ctx context.Context, args * demo.ArgsDemo) error {
+
+	// 先查询信息是否存在
+
+
+	// 验证数据是否存在
+
+
+	//对数据进行更新
+
+
+	return nil
+}
+
+//获取列表

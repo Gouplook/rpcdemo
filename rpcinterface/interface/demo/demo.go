@@ -15,12 +15,19 @@ import (
 // 入参数
 type ArgsDemo struct {
 	common.Paging // 分页
-
+	Reminder      []ReminderInfo      // 温馨提示
 }
 
 // 返回参数
 type ReplyDemo struct {
 }
+
+// 温馨提示
+ type ReminderInfo struct {
+	 ReminderName    string
+	 ReminderContent string
+ }
+
 
 // Demo接口
 type Demo interface {
