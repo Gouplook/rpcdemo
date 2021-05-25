@@ -7,7 +7,10 @@
 *********************************************/
 package tools
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 
 // 测试获取经纬度
@@ -19,4 +22,14 @@ func TestGetGaoByLatLng(t *testing.T) {
 		return
 	}
 	t.Log(mp)
+}
+
+func TestArrayUniqueString(t *testing.T) {
+	array := []string{
+		"abc","bcd","wer","bcd",
+	}
+
+	fmt.Println("array =",array)
+	temp := ArrayUniqueString(array)
+	fmt.Println(temp)
 }

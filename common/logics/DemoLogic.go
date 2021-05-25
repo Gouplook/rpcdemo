@@ -70,7 +70,7 @@ func (d *DemoLogic)GetDem(ctx context.Context) error{
 
 
 // 编辑信息
-func (d *DemoLogic)EditDem(ctx context.Context, args * demo.ArgsDemo) error {
+func (d *DemoLogic)EditDemo(ctx context.Context, args * demo.ArgsDemo) error {
 
 	// 先查询信息是否存在
 
@@ -85,3 +85,8 @@ func (d *DemoLogic)EditDem(ctx context.Context, args * demo.ArgsDemo) error {
 }
 
 //获取列表
+func (d *DemoLogic)ListDemo(ctx context.Context, demoId int,  ) error{
+
+
+	return nil
+}
