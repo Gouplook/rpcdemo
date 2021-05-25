@@ -212,7 +212,7 @@ func (i *ImageLogic)UploadImage(image *file.ArgsFile, reply *file.ReplyFileInfo)
 	}
 
 	// 打开文件
-	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0644)
+	f, err := os.OpenFile(path, os.O_WRONLY | os.O_CREATE, 0644)
 	defer  f.Close()
 	if err != nil {
 		return

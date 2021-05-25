@@ -12,6 +12,8 @@ import (
 	"mime/multipart"
 )
 
+
+// ===============文件/图片上传===========
 // 上传入参
 type ArgsFile struct {
 	Type       int    //  上传文件类型
@@ -26,11 +28,13 @@ type ReplyFileInfo struct {
 	Path string
 }
 
-// 上传照片接口
+// 文件/图片上传接口
 type Userinfo interface {
+	// 文件上传
+	UploadFile(ctx context.Context,args *ArgsFile,reply *ReplyFileInfo) error
+
 	// 图片上传
-
-
+	UploadImage(ctx context.Context, image *ArgsFile, reply *ReplyFileInfo) error
 	//根据URL地址获取远程图片
 	SaveImgFromUrl(ctx context.Context, imgStr *string, reply *ReplyFileInfo ) error
 }

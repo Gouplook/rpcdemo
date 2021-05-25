@@ -9,10 +9,11 @@ package _const
 
 // 全局定义错误code
 const (
-	Hi           = "10001"
-	IS_NOT_IMAGE = "10002"
-	IMG_TYPE_ERR = "10003"
-	UPLOAD_FAIL  = "10004"
+	Hi            = "10001"
+	IS_NOT_IMAGE  = "10002"
+	IMG_TYPE_ERR  = "10003"
+	UPLOAD_FAIL   = "10004"
+	FILE_TYPE_ERR = "10005"
 )
 
 // 时间类
