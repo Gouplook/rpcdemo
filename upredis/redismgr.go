@@ -226,7 +226,7 @@ func ( r *RedisMgr ) Clear( key string) error  {
 	return conn.Send("DEL", key )
 }
 
-//设置数据
+//设置数据 [String]
 func ( r *RedisMgr) Set(key string, data interface{}, expTime ...int64 ) error  {
 	conn := r.GetConn()
 	if conn.Err() != nil{
@@ -245,7 +245,7 @@ func ( r *RedisMgr) Set(key string, data interface{}, expTime ...int64 ) error  
 	}
 }
 
-//获取数据
+//获取数据 [String]
 func ( r *RedisMgr) Get(key string ) (interface{}, error)  {
 	conn := r.GetConn()
 	if conn.Err() != nil{
@@ -256,12 +256,11 @@ func ( r *RedisMgr) Get(key string ) (interface{}, error)  {
 		conn.Close()
 	}()
 
-
 	return  conn.Do("GET", key )
 
 }
 
-//设置某个hashKey名称的下的keyvalue值
+//设置某个hashKey名称的下的keyvalue值 [Hash]
 func ( r *RedisMgr ) Hset( hashKey string, key string, data interface{} ) error {
 	conn := r.GetConn()
 	if conn.Err() != nil{
@@ -277,13 +276,12 @@ func ( r *RedisMgr ) Hset( hashKey string, key string, data interface{} ) error 
 
 }
 
-//得到某个hashKey名称下的key信息
+//得到某个hashKey名称下的key信息 [Hash]
 func (r *RedisMgr ) Hget( hashKey string, key string ) ( interface{}, error )  {
 	conn := r.GetConn()
 	if conn.Err() != nil{
 		return nil, conn.Err()
 	}
-
 	defer func() {
 		conn.Close()
 	}()
@@ -291,7 +289,7 @@ func (r *RedisMgr ) Hget( hashKey string, key string ) ( interface{}, error )  {
 	return conn.Do("HGET", hashKey, key )
 }
 
-//删除haskKey下面的key建
+//删除haskKey下面的key建 [Hash]
 func ( r *RedisMgr) Hdel( hashKey string, key string ) error  {
 	conn := r.GetConn()
 	if conn.Err() != nil{
@@ -306,7 +304,7 @@ func ( r *RedisMgr) Hdel( hashKey string, key string ) error  {
 	return  conn.Send("HDEL", hashKey, key )
 }
 
-//获取hashKey的长度
+//获取hashKey的长度 [Hash]
 func ( r *RedisMgr ) Hlen( hashKey string ) ( int, error )  {
 	conn := r.GetConn()
 	if conn.Err() != nil{
@@ -344,8 +342,8 @@ func ( r *RedisMgr) Hincrby ( hashKey string, key string, incrNum interface{} ) 
 
 }
 
-//给指定的key增加num
-//num 必须为数字型
+// [String]
+//给指定的key增加num ,num 必须为数字型
 func ( r *RedisMgr) Incrnum( key string, num interface{} ) error {
 	switch num.(type) {
 	case int32, int, int64, int8, int16, float64, float32:

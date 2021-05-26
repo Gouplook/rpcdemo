@@ -6,6 +6,7 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v1.0.1 // indirect
 	github.com/Unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8
 	github.com/chenhg5/collection v0.0.0-20200925143926-f403b87088f9
+	github.com/elastic/go-elasticsearch v0.0.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gomodule/redigo/redis v0.0.0-20200429221454-e14091dffc1b
