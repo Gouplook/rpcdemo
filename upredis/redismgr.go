@@ -32,7 +32,7 @@ func init(){
 	RedisInit(db, RedisGlobMgr)
 }
 
-func RedisInit( db int, redism *RedisMgr){
+func RedisInit(db int, redism *RedisMgr){
 	host := fmt.Sprintf("%s:%s", upgin.AppConfig.String("redis.host"), upgin.AppConfig.String("redis.port"))
 	//最大空闲连接数
 	maxIdle, err := upgin.AppConfig.Int("redis.maxIdle")
