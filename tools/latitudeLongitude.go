@@ -39,7 +39,7 @@ func GetGaoByLatLng(address string, param ...interface{}) (map[string]interface{
 	body, _ := ioutil.ReadAll(resp.Body)
 	// 4: 数据序列化
 	var maps map[string]interface{}
-	json.Unmarshal(body, &maps)
+	_ = json.Unmarshal(body, &maps)
 	// 5: 提取经纬度数据
 	var data = make(map[string]interface{})
 	if v, ok := maps["geocodes"]; ok {

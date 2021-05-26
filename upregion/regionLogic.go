@@ -24,3 +24,10 @@ func (r *RegionLogic)GetByRegionId(ctx context.Context, args *public.ArgsRegion,
 
 	return nil
 }
+
+
+
+// 20000+20000 = 40000 - 2700-1220-350-6000 =28000-10000 = 18000
+
+
+//
