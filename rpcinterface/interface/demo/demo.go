@@ -18,7 +18,6 @@ type ArgsDemo struct {
 	Reminder      []ReminderInfo // 温馨提示
 
 	// 图片存储问题，图片以字符串的形式存放在数据库中
-
 	Picture []string //  相册图片
 	ImgHash string   //  封面图片hansh串
 }

@@ -8,11 +8,11 @@
 package base
 
 import (
+	"fmt"
 	"rpcdemo/upgin"
 	"rpcdemo/upgin/logs"
 	"rpcdemo/upgin/orm"
 	"strconv"
-	"fmt"
 )
 
 var(
@@ -31,7 +31,7 @@ func init(){
 	maxConn,_:= strconv.Atoi(upgin.AppConfig.DefaultString("db.maxconn","0"))
 	maxTime := upgin.AppConfig.DefaultInt("db.maxlifetime", 10800)
 	logs.Info("connMaxLifeTime(s)：", maxTime)
-	//设置注册数据库
+	// 设置注册数据库
 	if err == nil{
 		err = orm.RegisterDataBase("default", upgin.AppConfig.String("db.type"), dataSource,maxIdle,maxConn,maxTime)
 	}

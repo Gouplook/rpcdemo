@@ -24,7 +24,6 @@ type DemoModelField struct {
 	T_table string
 	F_reminder string `default:"reminder"`
 
-
 	F_CreatedAt string `default:"CreatedAt"`
 	CreatedAt string
 

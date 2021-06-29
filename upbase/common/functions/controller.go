@@ -8,12 +8,14 @@
 package functions
 
 import (
-	"apiDemo/upgin"
+
 	"github.com/gin-gonic/gin"
+	"rpcdemo/upgin"
 )
 
 type Controller struct {
 	upgin.Controller
+	upgin.Config
 	Input  *input
 	Output *output
 	Public public

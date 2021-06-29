@@ -20,6 +20,7 @@ type DemoLogic struct {
 
 }
 
+// 插入数据
 func (d *DemoLogic)DemoSample(ctx context.Context, args *demo.ArgsDemo, reply *demo.ReplyDemo) error {
 		// 初始化model
 		demoModel := new(models.DemoModel).Init()
@@ -33,14 +34,13 @@ func (d *DemoLogic)DemoSample(ctx context.Context, args *demo.ArgsDemo, reply *d
 		fmt.Println(rpcFile)
 
 
-		//
+		// 入参若是struct，存放数据库中以string形式存储，需要序列化
 		reminder,_ := json.Marshal(args.Reminder)
 
-		// 插入数据库
+		// 插入数据库（业务处理，增删改查CRUD）
 		demoModel.Insert(map[string]interface{}{
 			demoModel.Field.F_reminder:reminder,
 		})
-
 
 	return nil
 }
@@ -62,9 +62,6 @@ func (d *DemoLogic)GetDem(ctx context.Context) error{
 
 	// 图片信息处理
 
-
-
-
 	return nil
 }
 
@@ -84,7 +81,7 @@ func (d *DemoLogic)EditDemo(ctx context.Context, args * demo.ArgsDemo) error {
 	return nil
 }
 
-//获取列表
+// 获取列表
 func (d *DemoLogic)ListDemo(ctx context.Context, demoId int,  ) error{
 
 

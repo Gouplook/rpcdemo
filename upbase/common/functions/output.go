@@ -8,11 +8,12 @@
 package functions
 
 import (
-	"apiDemo/upbase/common/lang"
-	"apiDemo/upgin"
+
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"rpcdemo/upbase/common/lang"
+	"rpcdemo/upgin"
 )
 
 type output struct {
