@@ -18,7 +18,8 @@ import (
 
 func CreateModel(table string) {
 
-	prefix := upgin.AppConfig.String("db.xxxx")
+	// 表前缀db.prefix
+	prefix := upgin.AppConfig.String("db.prefix")
 	ormers := orm.NewOrm()
 	sql := fmt.Sprintf("select COLUMN_NAME from information_schema.COLUMNS where table_name ='%s'",prefix + table)
 	var maps []orm.Params

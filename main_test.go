@@ -11,20 +11,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
+	"rpcdemo/upbase/utils"
 	"testing"
 	"time"
 )
 
 func TestCreateModel(t *testing.T) {
 	// 创建数据库Model
-	// utils.CreateModel("bank_bus")
+	utils.CreateModel("card")
 
-	str := "https://api.shutung.com/v1/pay/sandpay"
+	// str := "https://api.shutung.com/v1/pay/sandpay"
+	//
+	//
+	// s := strings.Index(str, "/")
+	// fmt.Println(s)
 
 
-	s := strings.Index(str, "/")
-	fmt.Println(s)
 
 }
 

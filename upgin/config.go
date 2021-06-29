@@ -49,7 +49,7 @@ type upGinAppConfig struct {
 
 func init() {
 	UpConfig = &Config{
-		AppName:  "kcgin",
+		AppName:  "upgin",
 		RunMode:  "dev",
 		ConfPath: "conf",
 		ConfName: "app.conf",
@@ -59,17 +59,17 @@ func init() {
 		},
 	}
 	//
-	if os.Getenv("KCGIN_APPNAME") != "" {
-		UpConfig.AppName = os.Getenv("KCGIN_APPNAME")
+	if os.Getenv("UPGIN_APPNAME") != "" {
+		UpConfig.AppName = os.Getenv("UPGIN_APPNAME")
 	}
-	if os.Getenv("KCGIN_RUNMODE") != "" {
-		UpConfig.RunMode = os.Getenv("KCGIN_RUNMODE")
+	if os.Getenv("UPGIN_RUNMODE") != "" {
+		UpConfig.RunMode = os.Getenv("UPGIN_RUNMODE")
 	}
-	if os.Getenv("KCGIN_CONFPATH") != "" {
-		UpConfig.ConfPath = os.Getenv("KCGIN_CONFPATH")
+	if os.Getenv("UPGIN_CONFPATH") != "" {
+		UpConfig.ConfPath = os.Getenv("UPGIN_CONFPATH")
 	}
-	if os.Getenv("KCGIN_CONFNAME") != "" {
-		UpConfig.ConfName = os.Getenv("KCGIN_CONFNAME")
+	if os.Getenv("UPGIN_CONFNAME") != "" {
+		UpConfig.ConfName = os.Getenv("UPGIN_CONFNAME")
 	}
 	var err error
 	WorkPath, err = os.Getwd()
@@ -83,7 +83,7 @@ func init() {
 		panic(err)
 	}
 
-	// 路径拼接
+	// 路径拼接 /Users/uplook/code/gocode/rpcdemo/conf/app.conf
 	appConfigPath := filepath.Join(AppPath, UpConfig.ConfPath, UpConfig.AppName)
 	if !utils.FileExists(appConfigPath) {
 		appConfigPath = filepath.Join(WorkPath, UpConfig.ConfPath, UpConfig.ConfName)

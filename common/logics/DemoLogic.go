@@ -17,6 +17,7 @@ import (
 )
 
 type DemoLogic struct {
+
 }
 
 // 插入数据
@@ -54,7 +55,6 @@ func (d *DemoLogic) GetDem(ctx context.Context) error {
 	})
 
 	// map转struct  mapstructure.WeakDecode
-
 	var reminder []demo.ReminderInfo
 	_ = json.Unmarshal([]byte(demoInfo[demoModel.Field.F_reminder].(string)), &reminder)
 

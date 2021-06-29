@@ -15,7 +15,6 @@ import (
 )
 
 // i18n（其来源是英文单词 internationalization的首末字符i和n，18为中间的字符数）是“国际化”的简称
-
 var (
 	locales = &localeStore{store: make(map[string]*locale)}
 )
