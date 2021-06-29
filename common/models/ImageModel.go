@@ -8,11 +8,10 @@
 package models
 
 type ImageModel struct {
-
 	Field ImageModelField
 }
 
-//表字段
+// 表字段
 type ImageModelField struct {
 	T_table       string `default:"image"`
 	F_id          string `default:"id"`
@@ -24,19 +23,18 @@ type ImageModelField struct {
 	F_hash        string `default:"hash"`
 	F_path        string `default:"path"`
 	F_ext         string `default:"ext"`
-	F_type        string `default:"type"`  // 上传图片类型
+	F_type        string `default:"type"` // 上传图片类型
 }
 
-
-func (i *ImageModel)Init() *ImageModel{
+func (i *ImageModel) Init() *ImageModel {
 	// .....
 
 	return nil
 }
 
 // 插入数据
-func (i *ImageModel)Insert(data map[string]interface{}) int {
-	//.....
+func (i *ImageModel) Insert(data map[string]interface{}) int {
+	// .....
 
 	rs := 2
 	return rs
@@ -44,7 +42,7 @@ func (i *ImageModel)Insert(data map[string]interface{}) int {
 
 // 查重
 func (i *ImageModel) FindRepeatImage(md5 string, sha256 string, size int64) map[string]interface{} {
-	//....
+	// ....
 	rs := make(map[string]interface{})
 	// rs := i.Model.Where(map[string]interface{}{
 	// 	i.Field.F_md5:    md5,

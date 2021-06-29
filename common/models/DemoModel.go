@@ -13,23 +13,22 @@ import (
 	"rpcdemo/upgin/orm"
 )
 
-//表结构体
+// 表结构体
 type DemoModel struct {
-	Model   *base.Model
+	Model *base.Model
 	Field DemoModelField
 }
 
-//表字段
+// 表字段
 type DemoModelField struct {
-	T_table string
+	T_table    string
 	F_reminder string `default:"reminder"`
 
 	F_CreatedAt string `default:"CreatedAt"`
-	CreatedAt string
-
+	CreatedAt   string
 }
 
-func (d *DemoModel)Init(ormer ...orm.Ormer)*DemoModel{
+func (d *DemoModel) Init(ormer ...orm.Ormer) *DemoModel {
 	functions.ReflectModel(&d.Field)
 	d.Model = base.NewModel(d.Field.T_table, ormer...)
 
@@ -42,7 +41,7 @@ func (m *DemoModel) Insert(data map[string]interface{}) int {
 	return result
 }
 
-//批量添加
+// 批量添加
 func (m *DemoModel) InsertAll(data []map[string]interface{}) int {
 	if len(data) == 0 {
 		return 0
@@ -88,7 +87,3 @@ func (m *DemoModel) SelectByPage(where map[string]interface{}, start, limit int)
 	// 需要修改，刷选结果CreatedAt作为排序的字段
 	return m.Model.Where(where).Limit(start, limit).OrderBy(m.Field.CreatedAt + " DESC ").Select()
 }
-
-
-
-
