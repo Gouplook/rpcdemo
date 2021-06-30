@@ -93,7 +93,7 @@ func init() {
 			return
 		}
 	}
-	//
+	// 初始化解析对象
 	conf, err := newAppConfig("ini", appConfigPath)
 	if err != nil {
 		return
