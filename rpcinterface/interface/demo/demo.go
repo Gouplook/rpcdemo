@@ -39,7 +39,7 @@ type DemoBase struct {
 // 返回列表
 type ListDemo struct {
 	TotalNum int        // 总条数
-	List     []DemoBase //  列表基本信息
+	List     []DemoBase // 列表基本信息
 
 }
 

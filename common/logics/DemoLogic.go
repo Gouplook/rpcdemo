@@ -26,6 +26,7 @@ func (d *DemoLogic) DemoSample(ctx context.Context, args *demo.ArgsDemo, reply *
 	demoModel := new(models.DemoModel).Init()
 	wh := map[string]interface{}{}
 	start, limit := args.GetStart(), args.GetPageSize()
+
 	// 分页查找
 	demoModel.SelectByPage(wh, start, limit)
 
@@ -53,6 +54,7 @@ func (d *DemoLogic) GetDem(ctx context.Context) error {
 	demoInfo := demoModel.Find(map[string]interface{}{
 
 	})
+	// 6个 *120
 
 	// map转struct  mapstructure.WeakDecode
 	var reminder []demo.ReminderInfo
